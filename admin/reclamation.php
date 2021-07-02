@@ -2,15 +2,15 @@
 
 ?>
           <div class="container-fluid">
-            <h3 class="text-dark mb-4">Liste du congés</h3>
+            <h3 class="text-dark mb-4">Liste des réclamations</h3>
             <div class="card shadow">
               <div class="card-header py-3">
                   <?php
                     if(isset($_POST["rep"]))
                     {
                         $reponse = mysqli_real_escape_string($conn, $_POST['rep']);
-                        $congeid = mysqli_real_escape_string($conn, $_POST['conid']);       
-                        $updatestatus = ChangeStatuts($conn,$congeid,$reponse);
+                        $reclamationid = mysqli_real_escape_string($conn, $_POST['conid']);       
+                        $updatestatus = ChangereclamationStt($conn,$reclamationid,$reponse);
                         $matricule = mysqli_real_escape_string($conn, $_POST['matricule']);       
                             if($updatestatus='success' )
                             {
@@ -35,51 +35,44 @@
                   id="dataTable"
                   role="grid"
                   aria-describedby="dataTable_info">
-                  <table class="table my-0" id="dataTables">
+                  <table class="table my-0" id="dataTable">
                     <thead>
                       <tr>
                         <th>Matricule</th>
-                        <th>Date début</th>
-                        <th>Date fin</th>
-                        <th>Cause</th>
+                        <td>Cause</td>
                         <th>Réponse</th>
                         <th>La date de creation de demande</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php $congedata= GetcongeList($conn); 
-                        foreach($congedata as $con) {
+                      <?php $fdpdata= GetreclamationList($conn); 
+                        foreach($fdpdata as $con) {
                     
                        ?>
                         <tr>
                           <td>
                             <i class="fas fa-key"></i><?php echo $con['matricule']; ?>
                           </td>
-                          <td> 
-                            <i class="fas fa-calendar-week"></i> <?php echo $con['datedeb']; ?>
-                          </td>
                           <td>
-                            <i class="fas fa-calendar-week"></i> <?php echo $con['datefin']; ?>
-                          </td>
-                          <td>
-                            <i class="fas fa-clipboard-list"></i> <?php echo $con['cause']; ?>
+                            <?php echo $con['cause']; ?>
                           </td>
 
                           <td>
+
                             <?php 
-                            if($con['reponse']==1)
-                            {
-                                echo 'en cours';
-                            } else if ($con['reponse']==0)
-                            {
-                              echo 'Refusé';
-                            }
-                            else {
-                                echo 'Accepter';
-                            }
+                           if($con['reponse']==1)
+                           {
+                               echo 'en cours';
+                           } else if ($con['reponse']==0)
+                           {
+                             echo 'Refusé';
+                           }
+                           else {
+                               echo 'Accepter';
+                           }
                             ?> 
-                             <a href="#" data-toggle="modal" data-target="#congesetting<?php echo $con['cid']; ?>">
-                             <i class="fas fa-edit text-danger"></i>
+                            <a href="#" data-toggle="modal" data-target="#fdpsetting<?php echo $con['reclamationid']; ?>">
+                              <i class="fas fa-edit text-danger"></i>
                             </a>  
                           </td>
                           <td>
@@ -87,7 +80,7 @@
                           </td>
                         </tr>
                         <!-- Modal -->
-                        <div class="modal fade" id="congesetting<?php echo $con['cid']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="fdpsetting<?php echo $con['reclamationid']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
                             <div class="modal-header" style="background-color:#4e73df;color:#fff">
@@ -116,7 +109,7 @@
                                   </div>
                                 </div>
                               </div>
-                              <input type="hidden" value="<?php echo $con['cid']; ?>" name="conid">
+                              <input type="hidden" value="<?php echo $con['reclamationid']; ?>" name="conid">
                               <input type="hidden" value="<?php echo $con['matricule']; ?>" name="matricule">
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -128,11 +121,18 @@
                        </div>
                       <?php } ?> 
                     </tbody>
+                    <tfoot>
+                      <tr>
+                        <td><strong>Matricule</strong></td>
+                        <td><strong>Cause</strong></td>
+                        <td><strong>Réponse</strong></td>
+                        <td><strong>La date de creation de demande</strong></td>
+                      </tr>
+                    </tfoot>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-
 
 <?php include('inc/footer.php'); ?>

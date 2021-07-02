@@ -5,16 +5,17 @@
             <div class="container-fluid">
               <div class="row">
               <?php
-              if(isset($_POST["sujet"]))
+              if(isset($_POST["cause"]))
               {
                   $idpersonnel = mysqli_real_escape_string($conn, $_POST['personnelid']);
-                  $sujet = mysqli_real_escape_string($conn, $_POST['sujet']);
-                  $updateStaff = Createrdv( $conn,$idpersonnel,$sujet);
+                  $cause = mysqli_real_escape_string($conn, $_POST['cause']);
+                  $updateStaff = Createrec( $conn,$idpersonnel, $cause);
               }
               ?>
+
                 <div class="col-md-12">
                   <!-- DATA TABLE -->
-                  <h3 class="title-5 m-b-35">Les rendez-vous</h3>
+                  <h3 class="title-5 m-b-35">Les réclamations</h3>
                   <div class="table-data__tool">
                     <div class="table-data__tool-right">
                       <a
@@ -23,14 +24,14 @@
                         data-target="#newdemande"
                         class="au-btn au-btn-icon au-btn--green au-btn--small"
                       >
-                        <i class="zmdi zmdi-plus"></i>Envoyer une demande de rendez-vous
+                        <i class="zmdi zmdi-plus"></i>Envoyer une réclamation
                       </a>
                     </div>
                   </div>
                   <?php
-                  if(isset($_POST["sujet"])) 
+                  if(isset($_POST["cause"])) 
                   {
-                   if ($_POST["sujet"]==NULL)
+                   if ($_POST["cause"]==NULL)
                    {
                      echo'<div class="alert alert-danger container" role="alert">
                      <strong>Il faut remplir tous les champs</strong> 
@@ -58,31 +59,31 @@
                     <table class="table table-data2">
                       <thead>
                         <tr>
-                          <th>Sujet</th>
+                          <th>Cause</th>
                           <th>Réponse</th>
                           <th>Date de création</th>
                         </tr>
                       </thead>
                       <tbody>
-                      <?php $congedata= GetrdvList($conn,$userid); 
+                      <?php $congedata= GetrecList($conn,$userid); 
                         foreach($congedata as $cog) {
                     
                       ?>
                         <tr class="tr-shadow">
                           <td>
-                            <span class="status--process"><?php echo $cog['sujet']; ?></span>
+                            <span class="status--process"><?php echo $cog['cause']; ?></span>
                           </td>
                           <td>
-                           <?php
-                           if($cog['reponse'] ==0){
-                             echo'<span class="status--process">Refusé</span>';
-                           } elseif($cog['reponse'] ==1){
-                             echo'<span class="status--process">En cours</span>';
-                            }
-                           elseif($cog['reponse'] ==2){
-                             echo'<span class="status--process">Accepté</span>';
+                          <?php
+                          if($cog['reponse'] ==0){
+                            echo'<span class="status--process">Refusé</span>';
+                          } elseif($cog['reponse'] ==1){
+                            echo'<span class="status--process">En cours</span>';
                            }
-                           ?>
+                          elseif($cog['reponse'] ==2){
+                            echo'<span class="status--process">Accepté</span>';
+                          }
+                          ?>
                             
                           </td>
                           <td>
@@ -124,7 +125,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Nouvelle demande de rendez-vous</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Nouvelle réclamation</h5>
             <button
               type="button"
               class="close"
@@ -144,16 +145,17 @@
               <div class="form-group">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">
-                       <i class="fas fa-paper-plane"></i>
-                    </span>
+                    <span class="input-group-text"
+                      ><i class="fas fa-comment-alt"></i
+                    ></span>
                   </div>
-                  <input
+                  <textarea
                     class="form-control"
-                    name="sujet"
-                    type="input"
+                    name="cause"
+                    placeholder="cause de demande"
+                    type="text"
                     required
-                  />
+                  ></textarea>
                 </div>
               </div>
             </div>
