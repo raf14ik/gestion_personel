@@ -40,7 +40,7 @@
                   <div
                     class="flex-grow-1 bg-login-image"
                     style="
-                      background-image: url('assets/img/dogs/image3.jpeg?h=cbc3a40dae521ddee89bf6b026abde71');
+                      background-image: url('assets/img/dogs/image3.png?h=cbc3a40dae521ddee89bf6b026abde71');
                     "
                   ></div>
                 </div>

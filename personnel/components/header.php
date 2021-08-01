@@ -62,7 +62,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
+                            <img src="images/icon/logo1.png" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -109,7 +109,7 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
+                    <img src="images/icon/logo1.png" alt="Cool Admin" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -179,6 +179,12 @@
                                                         <a href="#"><?php echo $udata['nom']; ?> <?php echo $udata['prenom']; ?></a>
                                                     </h5>
                                                     <span class="email"><?php echo $udata['email']; ?></span>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="account.php">
+                                                        <i class="zmdi zmdi-account"></i>Mon compte</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">

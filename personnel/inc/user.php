@@ -25,10 +25,13 @@
 	function personnelLogin($conn,$matricule,$motdepasse,$rem)
 	{
 		//encrypting new pasword
-		$query =mysqli_query($conn,"SELECT * FROM `personnel` WHERE matricule ='$matricule' and motdepasse ='$motdepasse'");	
+		$password=md5(sha1($motdepasse));
+
+		$query =mysqli_query($conn,"SELECT * FROM `personnel` WHERE matricule ='$matricule' and motdepasse ='$password'");	
 		$rowcounts = mysqli_num_rows($query);	
 			if($rowcounts==1)
 			{
+
 				$row =mysqli_fetch_array($query);		
 				$stat=$row['statut'];
 				if($stat==1)
@@ -70,4 +73,35 @@
         }    
         return $data;
 	}
+
+	//get personnel informations
+	function GetperList($conn,$userid) {
+		$sqlq = mysqli_query($conn,"SELECT * FROM `personnel` where pid=$userid ");
+    	$data =array();
+        while($row =mysqli_fetch_assoc($sqlq))
+        {
+            $data[] = $row; 
+        }    
+        return $data;
+
+	}
+	//update personnel detail
+function Changepersonnel($conn,$pid, $nom, $prenom, $email,$newpass, $datenaissance, $adresse, $dateembauche, $poste)
+{		
+    if($pid!=NULL)
+    {
+
+        $password=md5(sha1($newpass));
+        mysqli_query($conn,"UPDATE `personnel` SET `nom`='$nom', `prenom`='$prenom', `email`='$email', `motdepasse`='$password', `datenaissance`='$datenaissance', `adresse`='$adresse', `dateembauche`='$dateembauche', `poste`='$poste' WHERE `personnel`.`pid` = $pid");
+        $response ='success';
+        return $response;
+    }
+    else
+    {
+        $response ='pwmiss';
+        return $response;
+    }
+
+
+}
 ?>

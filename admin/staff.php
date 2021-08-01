@@ -242,7 +242,7 @@ Deletepersonnel($conn,$delPersonnel); }
                                     <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     </div>
-                                    <input  class="form-control" name="newpassword" placeholder="Saisir un nouveau mot de passe de personnel"  type="text" required>
+                                    <input  class="form-control" name="newpassword" placeholder="Saisir un nouveau mot de passe de personnel"  type="password" required>
                                   </div>
                                 </div>
                               </div>

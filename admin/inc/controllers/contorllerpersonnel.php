@@ -16,9 +16,9 @@ function CreatePersonnel($conn,$matricule, $nom, $prenom, $email,$password, $dat
 		return $response;
 	}
 	else{
-		$password=md5(sha1($password));
+		$pass=md5(sha1($password));
 		mysqli_query($conn,"INSERT INTO `personnel` ( `matricule`, `nom`, `prenom`, `email`, `motdepasse`, `datenaissance`, `adresse`, `dateembauche`, `poste`, `creation`, `statut`) VALUES
-		('$matricule', '$nom', '$prenom', '$email','$password', '$datenaissance', '$adresse', '$dateembauche', '$poste','$datetoday','1')"); 
+		('$matricule', '$nom', '$prenom', '$email','$pass', '$datenaissance', '$adresse', '$dateembauche', '$poste','$datetoday','1')"); 
 
 			$response ='success';
 			return $response;
@@ -44,7 +44,7 @@ function Changepersonnel($conn,$pid,$matricule, $nom, $prenom, $email,$newpass, 
     {
 
         $password=md5(sha1($newpass));
-        mysqli_query($conn,"UPDATE `personnel` SET `matricule`='$matricule', `nom`='$nom', `prenom`='$prenom', `email`='$email', `motdepasse`='$newpass', `datenaissance`='$datenaissance', `adresse`='$adresse', `dateembauche`='$dateembauche', `poste`='$poste' WHERE `personnel`.`pid` = $pid");
+        mysqli_query($conn,"UPDATE `personnel` SET `matricule`='$matricule', `nom`='$nom', `prenom`='$prenom', `email`='$email', `motdepasse`='$password', `datenaissance`='$datenaissance', `adresse`='$adresse', `dateembauche`='$dateembauche', `poste`='$poste' WHERE `personnel`.`pid` = $pid");
         $response ='success';
         return $response;
     }
